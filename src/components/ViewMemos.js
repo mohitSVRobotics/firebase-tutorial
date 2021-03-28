@@ -1,8 +1,6 @@
-import './App.css';
 import {useState, useEffect} from 'react';
 
-import firebase from 'firebase';
-import 'firebase/firestore';
+import firebase from '../Firebase';
 
 function ViewMemos() {
   const [memos, setMemos] = useState("")
@@ -17,6 +15,9 @@ function ViewMemos() {
 
   return(
     //Use the map function to display memos
+    <div>
+    This is where we will see Memos.
+    </div>
   );
 }
 
