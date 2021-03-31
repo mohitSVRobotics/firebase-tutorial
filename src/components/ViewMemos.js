@@ -3,20 +3,30 @@ import {useState, useEffect} from 'react';
 import firebase from '../Firebase';
 
 function ViewMemos() {
-  const [memos, setMemos] = useState("")
+  const [memos, setMemos] = useState([]);
 
   useEffect(() => {
     firebase.firestore().collection("memo").get()
       .then((querySnapshot) => {
-        setMemos(querySnapshot);
-        console.log(querySnapshot);
+        let newList = []
+        querySnapshot.forEach((memo) => {
+          console.log(memo.data());
+          newList = newList.concat(memo.data().note.inputValue);
+        });
+        setMemos(newList);
       });
-  });
+  }, []);
+
+  console.log(memos);
 
   return(
     //Use the map function to display memos
     <div>
-    This is where we will see Memos.
+      <ul>
+        {(memos || []).map((memo) => (
+          <li>{memo}</li>
+        ))}
+      </ul>
     </div>
   );
 }
